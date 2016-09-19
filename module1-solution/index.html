@@ -21,13 +21,15 @@
     <!-- do NOT consider and empty item, i.e. ", , ," as an item towards the count -->
     <input id="lunch-menu" type="text"
            placeholder="list comma separated dishes you usually have for lunch"
-           class="form-control" ng-model="lunchItems">
+           class="form-control"
+           ng-model="lunchItems"
+           ng-style="inputStyle" >
   </div>
   <div class="form-group">
     <button class="btn btn-default" ng-click="checkLunch();">Check If Too Much</button>
   </div>
   <div class="form-group message">
-    {{ lunchMessage }}
+    <span ng-style="messageStyle">{{ lunchMessage }}</span>
   </div>
 </div>
 
