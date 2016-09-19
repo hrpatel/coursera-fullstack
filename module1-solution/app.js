@@ -8,6 +8,8 @@
   function MsgController($scope) {
     // initialize part of the model
     $scope.lunchItems = "";
+    $scope.inputStyle = {'border-color': 'red'};
+    $scope.messageStyle = {'color': 'red'};
 
     // initial handler for the check button
     $scope.checkLunch = function () {
@@ -16,12 +18,15 @@
 
       // Output according to the validated/sanitized input
       if (num_items == 0) {
+        colorMe("red");
         $scope.lunchMessage = "Please enter data first";
       }
       else if (num_items <= 3) {
+        colorMe("green");
         $scope.lunchMessage = "Enjoy!";
       }
       else if (num_items > 3) {
+        colorMe("green");
         $scope.lunchMessage = "Too much!";
       } else {
         console.log("This should never happen!")
@@ -45,6 +50,20 @@
       }
 
       return num_items;
+    }
+
+    // colouring functions
+    function colorMe(color) {
+      switch (color) {
+        case "green":
+          $scope.inputStyle = {'border-color': 'green'};
+          $scope.messageStyle = {'color': 'green'};
+          break;
+        case "red":
+          $scope.inputStyle = {'border-color': 'red'};
+          $scope.messageStyle = {'color': 'red'};
+          break;
+      }
     }
   }
 })();
