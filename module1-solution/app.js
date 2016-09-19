@@ -36,7 +36,7 @@
         var items = $scope.lunchItems.split(",");
 
         // remove empty items from the list
-        // do NOT consider and empty item, i.e.", , ," as an item towards to the count
+        // do NOT consider and empty item, i.e. ", , ," as an item towards the count
         items = items.filter(function (item) {
           return item.trim() != "";
         });
