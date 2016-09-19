@@ -38,7 +38,7 @@
         // remove empty items from the list
         // do NOT consider and empty item, i.e.", , ," as an item towards to the count
         items = items.filter(function (item) {
-          return item != "";
+          return item.trim() != "";
         });
 
         num_items = items.length;
