@@ -12,18 +12,15 @@ h1 {
   text-align: center;
 }
 
-section {
+.container {
   background-color: #007777;
   border: 1px solid black;
-  color: white;
-  font-size: 16px;
-}
-
-.container {
   position: relative;
+  margin: 5px;
 }
 
 .title {
+  color: white;
   position: relative;
   right: -1px;
   top: -1px;
@@ -37,6 +34,7 @@ section {
 
 .description {
   clear: right;
+  color: white;
   padding: 5px;
   font-size: 1em;
 }
