@@ -18,6 +18,24 @@ section {
   color: white;
 }
 
+.container {
+  /*background-color: #00FFFF;*/
+  position: relative;
+  /*top: 60px;*/
+}
+
+.title {
+  /*background-color: #5F9EA0;*/
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.description {
+  clear: right;
+}
+
+
 /* Simple Responsive Framework. */
 .row {
   width: 100%;
