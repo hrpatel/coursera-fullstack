@@ -27,10 +27,9 @@ h1 {
   color: white;
   float: right;
   font-size: 1.25em;
-  padding: 5px;
+  padding: 7px 20px 7px 20px;
   position: relative;
   text-align: center;
-  width: 40%;
 }
 
 .description {
