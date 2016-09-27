@@ -12,19 +12,8 @@
 
     toBuy.items = ShoppingListCheckOffService.getItemsToBuy();
 
-    toBuy.itemName = "";
-    toBuy.itemQuantity = "";
-
-    toBuy.addItem = function () {
-      try {
-        ShoppingListCheckOffService.addItem(litoBuyst.itemName, toBuy.itemQuantity);
-      } catch (error) {
-        toBuy.errorMessage = error.message;
-      }
-    };
-
-    toBuy.removeItem = function (itemIndex) {
-      ShoppingListCheckOffService.removeItem(itemIndex);
+    toBuy.buyItem = function (itemIndex) {
+      ShoppingListCheckOffService.buyItem(itemIndex);
     };
   }
 
@@ -34,21 +23,6 @@
     var bought = this;
 
     bought.items = ShoppingListCheckOffService.getBoughtItems();
-
-    bought.itemName = "";
-    bought.itemQuantity = "";
-
-    bought.addItem = function () {
-      try {
-        ShoppingListCheckOffService.addItem(bought.itemName, bought.itemQuantity);
-      } catch (error) {
-        list.errorMessage = error.message;
-      }
-    };
-
-    bought.removeItem = function (itemIndex) {
-      ShoppingListCheckOffService.removeItem(itemIndex);
-    };
   }
 
 
@@ -66,16 +40,11 @@
 
     var itemsBought = [];
 
-    service.addItem = function (itemName, quantity) {
-      var item = {
-        name: itemName,
-        quantity: quantity
-      };
-      itemsToBuy.push(item);
-    };
-
-    service.removeItem = function (itemIdex) {
-      itemsToBuy.splice(itemIdex, 1);
+    service.buyItem = function (itemIdex) {
+      itemsBought.push(
+        itemsToBuy.splice(itemIdex, 1)
+      );
+      console.log(itemsBought)
     };
 
     service.getItemsToBuy = function () {
