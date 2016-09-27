@@ -2,7 +2,8 @@
   'use strict';
 
   angular.module('ShoppingListCheckOff', [])
-    .controller('ShoppingListController', ShoppingListController)
+    .controller('ToBuyController', ToBuyController)
+    .controller('AlreadyBoughtController', AlreadyBoughtController)
     .provider('ShoppingListService', ShoppingListServiceProvider)
     .config(Config);
 
@@ -13,9 +14,9 @@
   }
 
 
-  ShoppingListController.$inject = ['ShoppingListService'];
-  function ShoppingListController(ShoppingListService) {
-    var list = this;
+  ToBuyController.$inject = ['ShoppingListService'];
+  function ToBuyController(ShoppingListService) {
+    var toBuy = this;
 
     list.items = ShoppingListService.getItems();
 
@@ -34,6 +35,30 @@
       ShoppingListService.removeItem(itemIndex);
     };
   }
+
+
+  AlreadyBoughtController.$inject = ['ShoppingListService'];
+  function AlreadyBoughtController(ShoppingListService) {
+    var toBuy = this;
+
+    list.items = ShoppingListService.getItems();
+
+    list.itemName = "";
+    list.itemQuantity = "";
+
+    list.addItem = function () {
+      try {
+        ShoppingListService.addItem(list.itemName, list.itemQuantity);
+      } catch (error) {
+        list.errorMessage = error.message;
+      }
+    };
+
+    list.removeItem = function (itemIndex) {
+      ShoppingListService.removeItem(itemIndex);
+    };
+  }
+
 
 
 // If not specified, maxItems assumed unlimited
