@@ -56,7 +56,28 @@
     var service = this;
 
     // List of shopping items
-    var items = [];
+    var items = [
+      {
+        name: "cookies",
+        quantity: 10
+      },
+      {
+        name: "chips",
+        quantity: 7
+      },
+      {
+        name: "water",
+        quantity: 1
+      },
+      {
+        name: "crackers",
+        quantity: 34
+      },
+      {
+        name: "apples",
+        quantity: 5
+      }
+    ];
 
     service.addItem = function (itemName, quantity) {
       var item = {
