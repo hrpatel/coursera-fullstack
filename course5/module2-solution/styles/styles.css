@@ -13,3 +13,10 @@ li > button {
 button > span {
   color: green;
 }
+
+h1 {
+  border-bottom: 1px solid black;
+  padding: 10px;
+  text-align: center;
+  text-transform: uppercase;
+}
