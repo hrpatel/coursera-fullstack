@@ -8,14 +8,54 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<h1>Circulatory system</h1>
+
+<header>
+  <nav id="header-nav" class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <div class="navbar-brand">
+          <h1>Circulatory Systems, LLC</h1>
+        </div>
+
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+
+      <div id="collapsable-nav" class="collapse navbar-collapse">
+        <ul id="nav-list" class="nav navbar-nav navbar-right">
+          <li class="visible-xs">
+            <a href="#heart">
+              Heart
+            </a>
+          </li>
+          <li class="visible-xs">
+            <a href="#blood">
+              Blood
+            </a>
+          </li>
+          <li class="visible-xs">
+            <a href="#blood_vessel">
+              Blood Vessel
+            </a>
+          </li>
+        </ul><!-- #nav-list -->
+      </div><!-- .collapse .navbar-collapse -->
+    </div><!-- .container -->
+  </nav><!-- #header-nav -->
+</header>
+
+<h3 class="text-center">Components of a Circulatory System</h3>
 
 <!-- Starting content here-->
 <div class="container-fluid">
   <div class="row">
     <section class="col-xs-12">
       <div class="item-box">
-        <p class="title heart">Heart</p>
+        <p id="heart" class="title heart">Heart</p>
         <p class="description">
           The heart is a muscular organ in humans and other animals, which pumps blood through the blood vessels of the circulatory system. Blood provides the body with oxygen and nutrients, as well as assists in the removal of metabolic wastes. The heart is located in the middle compartment of the chest.</p>
         <p class="description">
@@ -26,7 +66,7 @@
 
     <section class="col-xs-12">
       <div class="item-box">
-        <p class="title blood">Blood</p>
+        <p id="blood" class="title blood">Blood</p>
         <p class="description">
           Blood is a body fluid in humans and other animals that delivers necessary substances such as nutrients and oxygen to the cells and transports metabolic waste products away from those same cells.
         </p>
@@ -38,7 +78,7 @@
 
     <section class="col-xs-12">
       <div class="item-box">
-        <p class="title vessel">Blood Vessel</p>
+        <p id="blood_vessel" class="title vessel">Blood Vessel</p>
         <p class="description">
           The blood vessels are the part of the circulatory system that transports blood throughout the human body. There are three major types of blood vessels: the arteries, which carry the blood away from the heart; the capillaries, which enable the actual exchange of water and chemicals between the blood and the tissues; and the veins, which carry blood from the capillaries back toward the heart. The word vascular, meaning relating to the blood vessels, is derived from the Latin vas, meaning vessel. A few structures (such as cartilage and the lens of the eye) do not contain blood vessels and are labeled avascular.
         </p>
@@ -53,6 +93,6 @@
 
 <!-- jQuery (Bootstrap JS plugins depend on it) -->
 <script src="js/jquery-1.11.3.min.js"></script>
-<script src="js/bootstrap.min.js"></script
+<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
