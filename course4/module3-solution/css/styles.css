@@ -1,10 +1,11 @@
-/********** Base styles **********/
+/* BASE STYLE */
 * {
   box-sizing: border-box;
-  font-family: Helvetica, sans-serif;
+  font-family: 'Oxygen', sans-serif;
   margin: 0;
   padding: 0;
 }
+
 
 /** HEADER **/
 #header-nav {
@@ -22,6 +23,11 @@
   margin-bottom: 0;
   line-height: .75;
 }
+
+#nav-list a:hover {
+  background: #E7E7E7;
+}
+
 
 /* CONTENT */
 .row {
@@ -47,6 +53,15 @@
   text-align: center;
 }
 
+.back-to-top a:link {
+  border-width: 1px;
+  color: #aaa;
+  font-size: .9em;
+  text-transform: uppercase;
+  padding: 7px 7px;
+  text-align: center;
+}
+
 .description {
   clear: right;
   color: white;
@@ -66,10 +81,12 @@
   background-color: darkgreen;
 }
 
+
+/* OVERRIDES */
 /********** Extra Small devices only **********/
 @media (max-width: 480px) {
 
   .navbar-brand h1 {
-    font-size: 1.4em;
+    font-size: 1.3em;
   }
 }
