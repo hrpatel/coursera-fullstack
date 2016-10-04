@@ -1,7 +1,7 @@
 (function () {
 'use strict';
 
-angular.module('ShoppingListComponentApp', [])
+angular.module('NarrowItDownApp', [])
 .controller('ShoppingListController', ShoppingListController)
 .factory('ShoppingListFactory', ShoppingListFactory)
 .component('shoppingList', {
