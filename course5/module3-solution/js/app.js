@@ -2,19 +2,20 @@
 'use strict';
 
 angular.module('NarrowItDownApp', [])
-.controller('ShoppingListController', ShoppingListController)
-.factory('ShoppingListFactory', ShoppingListFactory)
-.component('shoppingList', {
-  templateUrl: 'shoppingList.html',
-  controller: ShoppingListComponentController,
-  bindings: {
-    items: '<',
-    myTitle: '@title',
-    onRemove: '&'
-  }
-});
+  .controller('NarrowItDownController', NarrowItDownController)
+  .service('MenuSearchService', MenuSearchService)
+  .constant('ApiBasePath', "http://davids-restaurant.herokuapp.com")
+  .component('shoppingList', {
+    templateUrl: 'shoppingList.html',
+    controller: ShoppingListComponentController,
+    bindings: {
+      items: '<',
+      myTitle: '@title',
+      onRemove: '&'
+    }
+  });
 
-ShoppingListComponentController.$inject = ['$scope', '$element']
+  ShoppingListComponentController.$inject = ['$scope', '$element']
 function ShoppingListComponentController($scope, $element) {
   var $ctrl = this;
 
@@ -59,70 +60,58 @@ function ShoppingListComponentController($scope, $element) {
 }
 
 
-ShoppingListController.$inject = ['ShoppingListFactory'];
-function ShoppingListController(ShoppingListFactory) {
-  var list = this;
+  NarrowItDownController.$inject = ['MenuSearchService'];
+function NarrowItDownController(MenuSearchService) {
+  var menu = this;
 
-  // Use factory to create new shopping list service
-  var shoppingList = ShoppingListFactory();
+  var promise = MenuSearchService.getMenuCategories();
 
-  list.items = shoppingList.getItems();
-  var origTitle = "Shopping List #1";
-  list.title = origTitle + " (" + list.items.length + " items )";
+  promise.then(function (response) {
+    menu.categories = response.data;
+  })
+    .catch(function (error) {
+      console.log("Something went terribly wrong.");
+    });
 
-  list.itemName = "";
-  list.itemQuantity = "";
+  menu.logMenuItems = function (shortName) {
+    var promise = MenuSearchService.getMenuForCategory(shortName);
 
-  list.addItem = function () {
-    shoppingList.addItem(list.itemName, list.itemQuantity);
-    list.title = origTitle + " (" + list.items.length + " items )";
+    promise.then(function (response) {
+      console.log(response.data);
+    })
+      .catch(function (error) {
+        console.log(error);
+      })
+  };
+}
+
+
+  MenuSearchService.$inject = ['$http', 'ApiBasePath']
+  function MenuSearchService($http, ApiBasePath) {
+    var service = this;
+
+    service.getMenuCategories = function () {
+      var response = $http({
+        method: "GET",
+        url: (ApiBasePath + "/categories.json")
+      });
+
+      return response;
+    };
+
+
+    service.getMenuForCategory = function (shortName) {
+      var response = $http({
+        method: "GET",
+        url: (ApiBasePath + "/menu_items.json"),
+        params: {
+          category: shortName
+        }
+      });
+
+      return response;
+    };
+
   }
-
-  list.removeItem = function (itemIndex) {
-    this.lastRemoved = "Last item removed was " + this.items[itemIndex].name;
-    shoppingList.removeItem(itemIndex);
-    this.title = origTitle + " (" + list.items.length + " items )";
-  };
-}
-
-
-// If not specified, maxItems assumed unlimited
-function ShoppingListService(maxItems) {
-  var service = this;
-
-  // List of shopping items
-  var items = [];
-
-  service.addItem = function (itemName, quantity) {
-    if ((maxItems === undefined) ||
-        (maxItems !== undefined) && (items.length < maxItems)) {
-      var item = {
-        name: itemName,
-        quantity: quantity
-      };
-      items.push(item);
-    }
-    else {
-      throw new Error("Max items (" + maxItems + ") reached.");
-    }
-  };
-
-  service.removeItem = function (itemIndex) {
-    items.splice(itemIndex, 1);
-  };
-
-  service.getItems = function () {
-    return items;
-  };
-}
-
-
-function ShoppingListFactory() {
-  var factory = function (maxItems) {
-    return new ShoppingListService(maxItems);
-  };
-
-  return factory;
-}
 
 })();
