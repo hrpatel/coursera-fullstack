@@ -50,3 +50,26 @@ input[type="text"] {
     transform: rotate(360deg);
   }
 }
+
+div.searchresult, div.infomessage{
+  padding-top: 5px;
+  clear: both;
+}
+
+.itemname {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.itemshortname {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.itemdescription {
+  font-style: italic;
+}
+
+li.itemlist {
+  padding-bottom: 16px;
+}
