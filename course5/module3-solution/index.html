@@ -18,10 +18,14 @@
   </div>
 
   <!-- Bonus loader (see Bonus section of the assignment) -->
-  <items-loader-indicator></items-loader-indicator>
+  <!--<items-loader-indicator></items-loader-indicator>-->
+
+  <div ng-if="narrow.nothingFound;" class="infomessage" ng-cloak>
+    Nothing found
+  </div>
 
   <!-- found-items should be implemented as a component -->
-  <found-items found-items="...." on-remove="...."></found-items>
+  <found-items found="narrow.found" on-remove="narrow.removeItem(index);"></found-items>
 </div>
 
 <script src="js/jquery-3.1.0.min.js"></script>
