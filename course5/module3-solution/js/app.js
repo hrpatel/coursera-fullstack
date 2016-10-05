@@ -29,23 +29,15 @@
 
     // define defaults
     narrow.searchTerm = "";
-    narrow.found = [];
+    narrow.found = null;
     narrow.nothingFound = false;
 
     narrow.narrowDown = function () {
-      narrow.found = [];
-
-
-      if (narrow.searchTerm.length > 0 && narrow.previousSearchTerm != narrow.searchTerm) {
+      if (narrow.searchTerm.length > 0) {
         var promise = MenuSearchService.getMatchedMenuItems(narrow.searchTerm);
 
         promise.then(function (response) {
           narrow.found = response;
-
-          if (narrow.found.length > 0) {
-            narrow.nothingFound = false;
-            narrow.previousSearchTerm = narrow.searchTerm;
-          }
         });
 
         promise.catch(function (error) {
@@ -53,7 +45,7 @@
         });
       }
       else {
-        narrow.nothingFound = true;
+        narrow.found = [];
       }
     };
 
@@ -79,7 +71,7 @@
             var allItems = response.data['menu_items'];
 
             for (var i = 0; i < allItems.length; i++) {
-              if (allItems[i]['description'].includes(searchTerm.trim())) {
+              if (allItems[i]['description'].includes(searchTerm)) {
                 foundItems.push(allItems[i])
               }
             }
