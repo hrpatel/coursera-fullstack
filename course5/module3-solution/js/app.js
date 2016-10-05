@@ -5,81 +5,61 @@
     .controller('NarrowItDownController', NarrowItDownController)
     .service('MenuSearchService', MenuSearchService)
     .constant('ApiBasePath', "http://davids-restaurant.herokuapp.com")
-    // .component('shoppingList', {
-    //   templateUrl: 'shoppingList.html',
-    //   controller: ShoppingListComponentController,
-    //   bindings: {
-    //     items: '<',
-    //     myTitle: '@title',
-    //     onRemove: '&'
-    //   }
-    // });
-  ;
+    .directive('foundItems', FoundItemsDirective);
 
-  // ShoppingListComponentController.$inject = ['$scope', '$element']
-  // function ShoppingListComponentController($scope, $element) {
-  //   var $ctrl = this;
-  //
-  //   $ctrl.cookiesInList = function () {
-  //     for (var i = 0; i < $ctrl.items.length; i++) {
-  //       var name = $ctrl.items[i].name;
-  //       if (name.toLowerCase().indexOf("cookie") !== -1) {
-  //         return true;
-  //       }
-  //     }
-  //
-  //     return false;
-  //   };
-  //
-  //   $ctrl.remove = function (myIndex) {
-  //     $ctrl.onRemove({ index: myIndex });
-  //   };
-  //
-  //   $ctrl.$onInit = function () {
-  //     console.log("We are in $onInit()");
-  //   };
-  //
-  //   $ctrl.$onChanges = function (changeObj) {
-  //     console.log("Changes: ", changeObj);
-  //   }
-  //
-  //   $ctrl.$postLink = function () {
-  //     $scope.$watch('$ctrl.cookiesInList()', function (newValue, oldValue) {
-  //       console.log($element);
-  //       if (newValue === true) {
-  //         // Show warning
-  //         var warningElem = $element.find('div.error');
-  //         warningElem.slideDown(900);
-  //       }
-  //       else {
-  //         // Hide warning
-  //         var warningElem = $element.find('div.error');
-  //         warningElem.slideUp(900);
-  //       }
-  //     });
-  //   };
-  // }
 
+  function FoundItemsDirective() {
+    return {
+      scope: {
+        found: '<',
+        onRemove: '&',
+        searchTerm: '<'
+      },
+      controller: NarrowItDownController,
+      controllerAs: 'narrow',
+      bindToController: true,
+      templateUrl: '../templates/founditems.html',
+      transclude: true
+    };
+  }
 
   NarrowItDownController.$inject = ['MenuSearchService'];
   function NarrowItDownController(MenuSearchService) {
     var narrow = this;
 
     // define defaults
-    narrow.searchTerm = "broth";
-    narrow.foundItems = [];
+    narrow.searchTerm = "";
+    narrow.found = [];
+    narrow.nothingFound = false;
 
     narrow.narrowDown = function () {
-      var promise = MenuSearchService.getMatchedMenuItems(narrow.searchTerm);
+      narrow.found = [];
 
-      promise.then(function (response) {
-        narrow.foundItems = response;
-      });
 
-      promise.catch(function (error) {
-        console.log("Something went terribly wrong.", error);
-      });
-    }
+      if (narrow.searchTerm.length > 0 && narrow.previousSearchTerm != narrow.searchTerm) {
+        var promise = MenuSearchService.getMatchedMenuItems(narrow.searchTerm);
+
+        promise.then(function (response) {
+          narrow.found = response;
+
+          if (narrow.found.length > 0) {
+            narrow.nothingFound = false;
+            narrow.previousSearchTerm = narrow.searchTerm;
+          }
+        });
+
+        promise.catch(function (error) {
+          console.log("Something went terribly wrong.", error);
+        });
+      }
+      else {
+        narrow.nothingFound = true;
+      }
+    };
+
+    narrow.removeItem = function (itemIndex) {
+      narrow.found.splice(itemIndex, 1);
+    };
   }
 
 
@@ -99,7 +79,7 @@
             var allItems = response.data['menu_items'];
 
             for (var i = 0; i < allItems.length; i++) {
-              if (allItems[i]['description'].includes(searchTerm)) {
+              if (allItems[i]['description'].includes(searchTerm.trim())) {
                 foundItems.push(allItems[i])
               }
             }
