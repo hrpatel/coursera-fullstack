@@ -18,7 +18,7 @@
       controller: NarrowItDownController,
       controllerAs: 'narrow',
       bindToController: true,
-      templateUrl: '../templates/founditems.html',
+      templateUrl: 'templates/founditems.html',
       transclude: true
     };
   }
