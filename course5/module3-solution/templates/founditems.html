@@ -1,11 +1,11 @@
 <div class="searchresult">
-  <ol>
-    <li ng-repeat="item in narrow.found" class="itemlist">
+  <div ng-repeat="item in narrow.found" class="itemlist row">
+    <div class="col-sm-10">
       <span class="itemname">{{ item.name }}</span>
-      <span class="itemshortname"> [{{ item.short_name }}]</span>
-      <button ng-click="narrow.onRemove({index: $index});">Don't want this one!</button>
-      <br>
+      <span class="itemshortname"> ({{ item.short_name }})</span>
       <span class="itemdescription">{{ item.description }}</span>
-    </li>
-  </ol>
+    </div>
+    <button class="col-sm-2" ng-click="narrow.onRemove({index: $index});">Don't want this one!</button>
+    <br>
+  </div>
 </div>
