@@ -67,9 +67,10 @@ div.searchresult, div.infomessage{
 }
 
 .itemdescription {
+  display: block;
   font-style: italic;
 }
 
-li.itemlist {
+div.itemlist {
   padding-bottom: 16px;
 }
